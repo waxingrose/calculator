@@ -12,20 +12,19 @@
     display: flex;
     flex-direction: column;
     border: 1px solid #000000;
-}
-
-.view {
-    border: 1px solid #000000;
+    padding: 5px;
 }
 
 .view {
     font-size: 30px;
     text-align: right;
+    border: 1px solid #000000;
     padding: 20px 10px 0px 20px;
 }
 
 .main {
     display: flex;
+    padding: 5px 0px 0px 0px;
 }
 
 .column1,
