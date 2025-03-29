@@ -7,21 +7,23 @@ const sign = document.querySelector(".sign")
 const percent = document.querySelector(".percent")
 
 let digit = ""
+let storedDigit = []
 numbers.forEach((num) =>
   num.addEventListener("click", () => {
     // if the result is displayed, a new number clears and starts new calc
     if (result) {
       result = ''
       digit = ''
+      storedDigit = []
     }
     digit += num.innerHTML
     console.log('digit = ' + digit)
     view.innerHTML = digit
     storedDigit.push(digit)
+    console.log('storedDigit = ' + storedDigit)
   }),
 )
 
-let storedDigit = []
 let op
 operators.forEach((operator) =>
   operator.addEventListener("click", () => {
@@ -32,7 +34,6 @@ operators.forEach((operator) =>
     op = operator.innerHTML
     console.log(op)
     storedDigit.push(op)
-    operate()
   }),
 )
 
@@ -40,7 +41,7 @@ let result
 let formula
 function operate() {
   if (!result) {
-    formula = `${storedDigit}`
+    formula = storedDigit.join(' ')
   } 
   result = eval(formula)
   storedDigit = result // stores result as next digit
