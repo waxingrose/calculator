@@ -11,7 +11,7 @@ let storedDigit = []
 numbers.forEach((num) =>
   num.addEventListener("click", () => {
     // if the result is displayed, a new number clears and starts new calc
-    if (result) {
+    if (result && !storedDigit.lastIndexOf(op)) {
       result = ''
       digit = ''
       storedDigit = []
@@ -27,7 +27,6 @@ numbers.forEach((num) =>
 let op
 operators.forEach((operator) =>
   operator.addEventListener("click", () => {
-    console.log('storedDigit = ' + storedDigit)
     digit = '' // resets digit
     console.log(digit)
     view.innerHTML = operator.innerHTML
@@ -40,11 +39,9 @@ operators.forEach((operator) =>
 let result
 let formula
 function operate() {
-  if (!result) {
-    formula = storedDigit.join(' ')
-  } 
+  formula = storedDigit.join(' ')
   result = eval(formula)
-  storedDigit = result // stores result as next digit
+  
 }
 
 const isInt = eval(result % 1)
