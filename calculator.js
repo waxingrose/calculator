@@ -16,48 +16,55 @@ numbers.forEach((num) =>
       digit = ''
       storedDigit = []
     }
+    if (result == Infinity || result == -Infinity) {
+      result = ''
+      digit = ''
+    }
     digit += num.innerHTML
-    console.log('digit = ' + digit)
     view.innerHTML = digit
-    storedDigit.push(digit)
-    console.log('storedDigit = ' + storedDigit)
+    
+    console.log('digit = ' + digit)
   }),
 )
 
 let op
 operators.forEach((operator) =>
   operator.addEventListener("click", () => {
+    storedDigit.push(digit)
     digit = '' // resets digit
-    console.log(digit)
     view.innerHTML = operator.innerHTML
     op = operator.innerHTML
-    console.log(op)
     storedDigit.push(op)
+
+    console.log('storedDigit = ' + storedDigit)
+    console.log(digit)
+    console.log(op)
   }),
 )
 
-let result
 let formula
+let result
 function operate() {
-  formula = storedDigit.join(' ')
+  formula = storedDigit.join('')
   result = eval(formula)
-  
 }
 
-const isInt = eval(result % 1)
 equal.addEventListener("click", (event) => {
+  const isInt = eval(result % 1)
   operate()
-  console.log('result = ' + result)
-  console.log('storedDigit = ' + storedDigit)
+
   if (isInt === 0) {
     view.innerHTML = result.toPrecision(20)
   }
-  if (result === Infinity) {
+  if (result === Infinity || result === -Infinity) {
     view.innerHTML = "=("
   }
   else {
     view.innerHTML = result
   }
+
+  console.log('result = ' + result)
+  console.log('storedDigit = ' + storedDigit)
 })
 
 function neg(number) {
@@ -66,17 +73,10 @@ function neg(number) {
 sign.addEventListener("click", (event) => {
 
   if (view.innerHTML == digit) {
-    console.log(digit = neg(digit))
+    digit = neg(digit)
     view.innerHTML = digit
   }
-  else if (view.innerHTML == storedDigit) {
-    console.log(storedDigit = neg(storedDigit))
-    view.innerHTML = storedDigit
-  }
-  else if (view.innerHTML == result) {
-    console.log(result = neg(result))
-    view.innerHTML = result
-  }
+
 })
 
 function per(number) {
