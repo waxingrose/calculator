@@ -20,25 +20,12 @@ numbers.forEach((num) =>
       result = ''
       digit = ''
     }
+
+    storedDigit.push(num.innerHTML)
     digit += num.innerHTML
     view.innerHTML = digit
     
     console.log('digit = ' + digit)
-  }),
-)
-
-let op
-operators.forEach((operator) =>
-  operator.addEventListener("click", () => {
-    storedDigit.push(digit)
-    digit = '' // resets digit
-    view.innerHTML = operator.innerHTML
-    op = operator.innerHTML
-    storedDigit.push(op)
-
-    console.log('storedDigit = ' + storedDigit)
-    console.log(digit)
-    console.log(op)
   }),
 )
 
@@ -49,10 +36,32 @@ function operate() {
   result = eval(formula)
 }
 
+let op
+operators.forEach((operator) =>
+  operator.addEventListener("click", () => {
+// will only show result with enough input
+    operate()
+    if (result){
+      view.innerHTML = result
+    }
+    else{
+      view.innerHTML = operator.innerHTML
+    }
+
+    op = operator.innerHTML
+    storedDigit.push(op)
+    digit = '' // resets digit
+
+    console.log('storedDigit = ' + storedDigit)
+    console.log(digit)
+    console.log(op)
+  }),
+)
+
 equal.addEventListener("click", (event) => {
-  const isInt = eval(result % 1)
   operate()
 
+  const isInt = eval(result % 1)
   if (isInt === 0) {
     view.innerHTML = result.toPrecision(20)
   }
