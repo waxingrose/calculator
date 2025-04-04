@@ -11,75 +11,79 @@ let storedDigit = []
 numbers.forEach((num) =>
   num.addEventListener("click", () => {
     // if the result is displayed, a new number clears and starts new calc
-    if (result && storedDigit.lastIndexOf(op) == -1) {
-      result = ''
-      digit = ''
+    if (result && storedDigit.lastIndexOf(op) == -1) { // bug with non single digit; reset digit at equal instead of here
+      result = ""
       storedDigit = []
     }
     if (result == Infinity || result == -Infinity) {
-      result = ''
-      digit = ''
+      result = ""
+      digit = ""
     }
+    // insert code here to disable more than one decimal 
 
-    storedDigit.push(num.innerHTML) // fix non single digits and decimals [2,0,0] and [2,20,200]
-    storedDigit = [storedDigit.join('')]
     digit += num.innerHTML
     view.innerHTML = digit
 
-    console.log('digit = ' + digit)
+    console.log("digit = " + digit)
   }),
 )
 
 let formula
 let result
 function operate() {
-
   const accum = storedDigit.reduce((accum, current) => {
-
     if (accum.length < 3) {
       return accum.concat(current)
     }
 
-    if (accum.length === 3) { // doesn't work with non single digits nor decimals
-      formula = accum.join('')
+    if (accum.length === 3) {
+      formula = accum.join("")
       let newAccum = eval(formula)
       accum = [newAccum]
     }
 
-    return accum.concat(current) // terminates before iterating last index of the newarray if spliced
-
+    return accum.concat(current) // doesn't iterate last index of new array if using splice here
   }, [])
 
-  result = eval(accum.join(''))
+  result = eval(accum.join(""))
   console.log(accum)
-
 }
 
 let op
 operators.forEach((operator) =>
   operator.addEventListener("click", () => {
-    // will only show result with enough input
+
+    // fixes [2,0,0] and [2,20,200]
+    if (digit.length != 0) { 
+      storedDigit.push(digit) 
+    }
+
+    // only show result with enough input
     operate()
     if (result) {
       view.innerHTML = result
-    }
-    else {
+    } else {
       view.innerHTML = operator.innerHTML
     }
 
     op = operator.innerHTML
     storedDigit.push(op)
-    digit = '' // resets digit
+    digit = "" // resets digit 
 
-    console.log('storedDigit = ' + storedDigit)
+    console.log("storedDigit = " + storedDigit)
     console.log(digit)
-    console.log(op)
+
   }),
 )
 
 equal.addEventListener("click", (event) => {
+
+  // fixes [2,0,0] and [2,20,200]
+  if (digit.length != 0) {
+    storedDigit.push(digit) 
+  }
   operate()
-  // clear storedDigit and push result into storedDigit if pressing operator again..
+  // clear storedDigit and push result into storedDigit for when pressing operator after equal
   storedDigit = [result]
   const isInt = eval(result % 1)
   if (isInt === 0) {
@@ -87,25 +91,22 @@ equal.addEventListener("click", (event) => {
   }
   if (result === Infinity || result === -Infinity) {
     view.innerHTML = "=("
-  }
-  else {
+  } else {
     view.innerHTML = result
   }
-
-  console.log('result = ' + result)
-  console.log('storedDigit = ' + storedDigit)
+  digit = '' // reset for new number
+  console.log("result = " + result)
+  console.log("storedDigit = " + storedDigit)
 })
 
 function neg(number) {
   return -number
 }
 sign.addEventListener("click", (event) => {
-
   if (view.innerHTML == digit) {
     digit = neg(digit)
     view.innerHTML = digit
   }
-
 })
 
 function per(number) {
