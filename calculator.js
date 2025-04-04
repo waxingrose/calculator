@@ -11,7 +11,7 @@ let storedDigit = []
 numbers.forEach((num) =>
   num.addEventListener("click", () => {
     // if the result is displayed, a new number clears and starts new calc
-    if (result && !storedDigit.lastIndexOf(op)) {
+    if (result && storedDigit.lastIndexOf(op) == -1) {
       result = ''
       digit = ''
       storedDigit = []
@@ -22,7 +22,7 @@ numbers.forEach((num) =>
     }
 
     storedDigit.push(num.innerHTML) // fix non single digits and decimals [2,0,0] and [2,20,200]
-    storedDigit = [storedDigit.join('')] 
+    storedDigit = [storedDigit.join('')]
     digit += num.innerHTML
     view.innerHTML = digit
 
