@@ -24,7 +24,7 @@ numbers.forEach((num) =>
     storedDigit.push(num.innerHTML)
     digit += num.innerHTML
     view.innerHTML = digit
-    
+
     console.log('digit = ' + digit)
   }),
 )
@@ -32,19 +32,37 @@ numbers.forEach((num) =>
 let formula
 let result
 function operate() {
-  formula = storedDigit.join('')
-  result = eval(formula)
+
+  const accum = storedDigit.reduce((accum, current) => {
+
+    if (accum.length < 3) {
+      return accum.concat(current)
+    }
+
+    if (accum.length === 3) {
+      formula = accum.join('')
+      let newAccum = eval(formula)
+      accum = [newAccum]
+    }
+
+    return accum.concat(current) // terminates before iterating last index of the newarray if spliced
+
+  }, [])
+
+  result = eval(accum.join(''))
+  console.log(accum)
+
 }
 
 let op
 operators.forEach((operator) =>
   operator.addEventListener("click", () => {
-// will only show result with enough input
+    // will only show result with enough input
     operate()
-    if (result){
+    if (result) {
       view.innerHTML = result
     }
-    else{
+    else {
       view.innerHTML = operator.innerHTML
     }
 
@@ -60,7 +78,8 @@ operators.forEach((operator) =>
 
 equal.addEventListener("click", (event) => {
   operate()
-
+  // clear and push result into storedDigit if press operator again..
+  storedDigit = [result]
   const isInt = eval(result % 1)
   if (isInt === 0) {
     view.innerHTML = result.toPrecision(20)
