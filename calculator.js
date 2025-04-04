@@ -21,7 +21,8 @@ numbers.forEach((num) =>
       digit = ''
     }
 
-    storedDigit.push(num.innerHTML)
+    storedDigit.push(num.innerHTML) // fix non single digits and decimals [2,0,0] and [2,20,200]
+    storedDigit = [storedDigit.join('')] 
     digit += num.innerHTML
     view.innerHTML = digit
 
@@ -39,7 +40,7 @@ function operate() {
       return accum.concat(current)
     }
 
-    if (accum.length === 3) {
+    if (accum.length === 3) { // doesn't work with non single digits nor decimals
       formula = accum.join('')
       let newAccum = eval(formula)
       accum = [newAccum]
@@ -78,7 +79,7 @@ operators.forEach((operator) =>
 
 equal.addEventListener("click", (event) => {
   operate()
-  // clear and push result into storedDigit if press operator again..
+  // clear storedDigit and push result into storedDigit if pressing operator again..
   storedDigit = [result]
   const isInt = eval(result % 1)
   if (isInt === 0) {
