@@ -109,7 +109,7 @@ sign.addEventListener('click', (event) => {
     digit = neg(digit) 
     view.innerHTML = digit
   }
-  if (storedDigit == result) {
+  if (storedDigit != '' && storedDigit == result) {
     result = neg(result)
     storedDigit = [result]
     view.innerHTML = storedDigit
@@ -117,14 +117,14 @@ sign.addEventListener('click', (event) => {
 })
 
 function per(number) {
-  return number / 100
+  return (number / 100) 
 }
 percent.addEventListener('click', (event) => {
   if (digit) {
     digit = per(digit)
     view.innerHTML = digit
   }
-  if (storedDigit == result) {
+  if (storedDigit != '' && storedDigit == result) {
     storedDigit = [per(result)]
     view.innerHTML = storedDigit
   }
