@@ -43,7 +43,7 @@ function operate() {
       accum = [newAccum]
     }
 
-    return accum.concat(current) // doesn't iterate last index of new array if using splice here
+    return accum.concat(current) 
   }, [])
 
   result = eval(accum.join(''))
@@ -98,26 +98,35 @@ equal.addEventListener('click', (event) => {
   digit = '' // reset for new number
   console.log('result = ' + result)
   console.log('storedDigit = ' + storedDigit)
+  console.log(`digit = ` + digit)
 })
 
 function neg(number) {
   return -number
 }
 sign.addEventListener('click', (event) => {
-  if (storedDigit.length != 1 && !result) {
-    digit = neg(digit)
+  if (digit) {
+    digit = neg(digit) 
     view.innerHTML = digit
   }
-  
+  if (storedDigit == result) {
+    result = neg(result)
+    storedDigit = [result]
+    view.innerHTML = storedDigit
+  }
 })
 
 function per(number) {
   return number / 100
 }
 percent.addEventListener('click', (event) => {
-  if (Number(view.innerHTML)) {
-    digit = per(view.innerHTML)
+  if (digit) {
+    digit = per(digit)
     view.innerHTML = digit
+  }
+  if (storedDigit == result) {
+    storedDigit = [per(result)]
+    view.innerHTML = storedDigit
   }
 })
 
