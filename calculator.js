@@ -125,7 +125,8 @@ percent.addEventListener('click', (event) => {
     view.innerHTML = digit
   }
   if (storedDigit != '' && storedDigit == result) {
-    storedDigit = [per(result)]
+    result = per(result)
+    storedDigit = [result]
     view.innerHTML = storedDigit
   }
 })
