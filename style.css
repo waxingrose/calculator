@@ -1,4 +1,6 @@
 .container {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,15 +13,16 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    border: 1px solid #000000;
-    padding: 5px;
+    border: 1px outset #000000;
+    padding: 10px;
+    background-color: #ffedf0;
 }
 
 .view {
-    font-size: 30px;
     text-align: right;
-    border: 1px solid #000000;
     padding: 20px 10px 0px 20px;
+    /* top, right, bottom, left */
+    background-color: #ffffff;
 }
 
 .main {
@@ -40,9 +43,22 @@
 }
 
 button {
-    font-size: 30px;
+    font-size: 20px;
     padding: 20px;
     width: 90px;
+    border: 1px dashed #cccccc;
+}
+
+.number {
+    background-color: #ffedf0;
+}
+
+.clear,
+.equal,
+.operator,
+.sign,
+.percent {
+    border: 1px dashed #cccccc;
 }
 
 #zero {
