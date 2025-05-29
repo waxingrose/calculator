@@ -5,7 +5,6 @@ const equal = document.querySelector('.equal')
 const clear = document.querySelector('.clear')
 const sign = document.querySelector('.sign')
 const percent = document.querySelector('.percent')
-const decimal = document.getElementById('decimal')
 
 let digit = ''
 let result = ''
@@ -13,41 +12,38 @@ let storedDigit = []
 numbers.forEach((num) =>
   num.addEventListener('click', () => {
     // stops input of more than one decimal 
-    const hasDecimal = digit.toString().includes('.')
+    const checkDecimal = digit.toString().includes('.')
     const resultDecimal = result.toString().includes('.')
-    if ((hasDecimal == false || resultDecimal == false) && num.innerHTML != '.') {
+    if ((checkDecimal == false || resultDecimal == false) && num.innerHTML != '.') {
       digit += num.innerHTML
       view.innerHTML = digit
       console.log('digit = ' + digit)
     }
     // fix bug so that digit follows decimal
-    else if (hasDecimal == true && num.innerHTML != '.') {
+    else if (checkDecimal == true && num.innerHTML != '.') {
       digit += num.innerHTML
       view.innerHTML = digit
       console.log('digit = ' + digit)
     }
-      // fix bug when decimal entered as new digit after operator resets digit
-    else if (hasDecimal == false && num.innerHTML == '.' && result != storedDigit) {
+    // fix bug when decimal entered as new digit after operator resets digit
+    else if (checkDecimal == false && num.innerHTML == '.' && result != storedDigit) {
       digit += num.innerHTML
       view.innerHTML = digit
       console.log('digit = ' + digit)
     }
     // fix bug so that decimal is entered as new digit after result is displayed
-    else if (hasDecimal == false && num.innerHTML == '.' && result == storedDigit) {
+    else if (checkDecimal == false && num.innerHTML == '.' && result == storedDigit) {
       result = ''
       storedDigit = []
       digit += num.innerHTML
       view.innerHTML = digit
       console.log('digit = ' + digit)
     }
-    // if the result is displayed, a new number clears and starts new calc
-    else if
-      (view.innerHTML == result && result == storedDigit) {
+    else { null }
+    // fix bug for if the result is displayed, a new number clears and starts new calc
+    if (result != '' && result == storedDigit && num.innerHTML != '.') {
       result = ''
       storedDigit = []
-      digit += num.innerHTML
-      view.innerHTML = digit
-      console.log('digit = ' + digit)
     }
     else if
       (result == Infinity || result == -Infinity) {
