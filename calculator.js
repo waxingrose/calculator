@@ -11,7 +11,7 @@ let result = ''
 let storedDigit = []
 numbers.forEach((num) =>
   num.addEventListener('click', () => {
-    // stops input of more than one decimal 
+    // stops inputting more than one decimal 
     const checkDecimal = digit.toString().includes('.')
     const resultDecimal = result.toString().includes('.')
     if ((checkDecimal == false || resultDecimal == false) && num.innerHTML != '.') {
@@ -19,19 +19,19 @@ numbers.forEach((num) =>
       view.innerHTML = digit
       console.log('digit = ' + digit)
     }
-    // fix bug so that digit follows decimal
+    // fixes bug so that digit follows decimal
     else if (checkDecimal == true && num.innerHTML != '.') {
       digit += num.innerHTML
       view.innerHTML = digit
       console.log('digit = ' + digit)
     }
-    // fix bug when decimal entered as new digit after operator resets digit
+    // fixes bug when decimal entered as new digit after operator resets digit
     else if (checkDecimal == false && num.innerHTML == '.' && result != storedDigit) {
       digit += num.innerHTML
       view.innerHTML = digit
       console.log('digit = ' + digit)
     }
-    // fix bug so that decimal is entered as new digit after result is displayed
+    // fixes bug so that decimal is entered as new digit after result is displayed
     else if (checkDecimal == false && num.innerHTML == '.' && result == storedDigit) {
       result = ''
       storedDigit = []
@@ -40,7 +40,8 @@ numbers.forEach((num) =>
       console.log('digit = ' + digit)
     }
     else { null }
-    // fix bug for if the result is displayed, a new number clears and starts new calc
+
+    // fixes bug so if the result is displayed, a new number clears and starts new calc
     if (result != '' && result == storedDigit && num.innerHTML != '.') {
       result = ''
       storedDigit = []
@@ -50,9 +51,7 @@ numbers.forEach((num) =>
       result = ''
       digit = ''
     }
-    else {
-      null;
-    }
+    else { null }
   }
 
   ),
